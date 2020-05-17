@@ -1,0 +1,19 @@
+{
+    "outputFile": "out.mp4",
+    "conversion": {
+        "input": {
+            "accelerator": "vaapi",
+            "bufferSeconds": 10
+        },
+        "output": {
+            "bitrate": {
+                "video": 5000,
+                "audio": 192
+            },
+            "codecs": {
+                "videoCodec": "libx264",
+                "audioCodec": "aac"
+            }
+        }
+    }
+}

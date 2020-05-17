@@ -1,0 +1,6 @@
+
+# Prevent local specific configs to be committed.
+ffmpeg.json
+
+# prevent twitch credentials from being committed.
+twitch.json

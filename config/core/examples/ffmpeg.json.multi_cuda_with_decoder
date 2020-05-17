@@ -1,0 +1,28 @@
+{
+    "outputFile": "out.mp4",
+    "gpus": [
+        {
+            "id": 0,
+            "maxRenderCount": 2
+        }
+    ],
+    "conversion": {
+        "input": {
+            "accelerator": "cuvid",
+            "codecs": {
+                "videoCodec": "h264_cuvid"
+            },
+            "bufferSeconds": 10
+        },
+        "output": {
+            "bitrate": {
+                "video": 5000,
+                "audio": 192
+            },
+            "codecs": {
+                "videoCodec": "h264_nvenc",
+                "audioCodec": "aac"
+            }
+        }
+    }
+}

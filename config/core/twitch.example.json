@@ -1,0 +1,7 @@
+{
+  "oAuth": {
+    "clientId": "[CLIENT_ID]",
+    "clientSecret": "[CLIENT_SECRET]"
+  },
+  "userAgent": "Mozilla/5.0 (Whaackintosh; Cannabis WeedOS 10_14_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.149 Safari/537.36"
+}

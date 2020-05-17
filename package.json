@@ -1,0 +1,42 @@
+{
+  "name": "netchive",
+  "version": "0.0.1",
+  "description": "Netchive, automatic recording system for Twitch™",
+  "main": "dist/",
+  "repository": "https://github.com/Netchive/netchive",
+  "author": "Alex4386 <psh010209@gmail.com>",
+  "license": "MIT",
+  "private": true,
+  "dependencies": {
+    "axios": "^0.19.2",
+    "discord.js": "^12.2.0",
+    "diskusage-ng": "^0.2.4",
+    "express": "^4.17.1",
+    "express-ws": "^4.0.0",
+    "fluent-ffmpeg": "^2.1.2",
+    "googleapis": "^48.0.0",
+    "mime": "^2.4.4",
+    "twitch": "^4.0.7",
+    "twitch-chat-client": "^4.0.7",
+    "twitch-webhooks": "^4.0.7",
+    "typescript": "^3.8.3"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.5",
+    "@types/express-ws": "^3.0.0",
+    "@types/fluent-ffmpeg": "^2.1.14",
+    "@types/mime": "^2.0.1",
+    "@types/node": "^13.9.3",
+    "@typescript-eslint/eslint-plugin": "^2.25.0",
+    "@typescript-eslint/parser": "^2.25.0",
+    "eslint": "^6.8.0"
+  },
+  "scripts": {
+    "lint": "yarn eslint \"src/**/*\"",
+    "lint-fix": "yarn lint --fix",
+    "build": "tsc",
+    "start": "yarn build && node dist/",
+    "signin-google": "yarn build && node dist/plugins/google-drive/setup.js",
+    "manage-streamer": "yarn build && node dist/streamer/manage.js"
+  }
+}

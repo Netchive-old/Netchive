@@ -1,0 +1,9 @@
+{
+    "outputFile": "out.mp4",
+    "conversion": {
+        "input": {
+            "accelerator": "auto",
+            "bufferSeconds": 10
+        }
+    }
+}

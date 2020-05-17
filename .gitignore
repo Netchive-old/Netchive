@@ -1,0 +1,27 @@
+# Welcome to 
+# Netchive's glorious
+# gitignore
+
+# Node Blackhole is banned here.
+/node_modules/
+
+# Visual Studio Code Configuration? Oof.
+.vscode/
+
+# Prevent Commiting videos directory!!
+/videos/
+
+# Typescript compile results
+/dist/
+
+# Alex4386 is Mac Villian
+.DS_Store
+
+# ffmpeg internal setup
+/config/core/ffmpeg.json
+
+# ignore streamer samples
+/streamer.json
+
+# yarn-error should not be logged, Oops.
+/yarn-error.log
