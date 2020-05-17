@@ -1,7 +1,7 @@
 import Plugin from "./interface";
 import { HelixUser } from "twitch";
-import { StreamSessionInterface } from "../streamSession/interface";
-import { FFMpegProgressInterface } from "../ffmpeg/interface";
+import { StreamSessionInterface } from "../record/streamSession/interface";
+import { FFMpegProgressInterface } from "../record/ffmpeg/interface";
 
 const loadedPlugins: Plugin[] = [];
 

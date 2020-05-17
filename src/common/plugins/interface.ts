@@ -1,6 +1,6 @@
 import { HelixUser } from "twitch";
-import { FFMpegProgressInterface } from "../ffmpeg/interface";
-import { StreamSessionInterface } from "../streamSession/interface";
+import { FFMpegProgressInterface } from "../record/ffmpeg/interface";
+import { StreamSessionInterface } from "../record/streamSession/interface";
 
 interface PluginPrototype {
   /**

@@ -1,7 +1,8 @@
-import { FFMpegMediaConversionInterface, FFMpegConfigInterface } from "../config/ffmpeg";
+import { FFMpegMediaConversionInterface, FFMpegConfigInterface } from "../../config/ffmpeg";
 import * as stream from "stream";
-import ffmpeg, { FfmpegCommand } from "fluent-ffmpeg";
+import ffmpeg, { FfmpegCommand, FfmpegCommandOptions } from "fluent-ffmpeg";
 import fs from "fs";
+import { spawn, ChildProcessWithoutNullStreams } from "child_process";
 
 export const ffmpegConfigFile = "./config/core/ffmpeg.json";
 
@@ -40,7 +41,6 @@ export function loadConfig4FFmpeg(input: string | stream.Readable, output: strin
     //"-vsync 1",
     "-async 1"
   ]).output(output);
-
 
   if (gpuIndex) {
     // https://stackoverflow.com/questions/41948716/how-to-choose-gpu-among-multiple-nvidia-gpu-in-ffmpeg-3-2-0

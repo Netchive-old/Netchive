@@ -1,10 +1,10 @@
 import path from "path";
 import { HelixUser } from "twitch";
-import { getStreamOnlyClientId, getTwitchAccessToken, getTwitchLivePlaylistUrl, generateDateName } from "../twitch/stream";
+import { getStreamOnlyClientId, getTwitchAccessToken, getTwitchLivePlaylistUrl, generateDateName } from "../../twitch/stream";
 import { StreamSessionInterface } from "./interface";
 import { loadConfig4FFmpeg, loadFFmpegConfig } from "../ffmpeg/config";
 import { allocateGPU } from "./gpu";
-import { setupStreamerPath } from "../setup";
+import { setupStreamerPath } from "../../setup";
 import fs from "fs";
 
 const streamSessions: StreamSessionInterface[] = [];

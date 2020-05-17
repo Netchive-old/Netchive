@@ -1,7 +1,7 @@
 import PluginPrototype from "../../common/plugins/interface";
 import { HelixUser } from "twitch";
-import { StreamSessionInterface } from "../../common/streamSession/interface";
-import { FFMpegProgressInterface } from "../../common/ffmpeg/interface";
+import { StreamSessionInterface } from "../../common/record/streamSession/interface";
+import { FFMpegProgressInterface } from "../../common/record/ffmpeg/interface";
 
 class SamplePlugin implements PluginPrototype {
   public id = "com.netchive.plugin.sample";

@@ -1,13 +1,12 @@
-import { updateStreamer, loadStreamerFile, loadStreamer } from "./common/streamer";
-import { loadPlugin, onInit, onRecordStarted, onRecordProgress, onRecordEnded, onRecordError } from "./common/plugins";
+import { updateStreamer, loadStreamerFile, loadStreamer } from "./common/record/streamer";
+import { loadPlugin, onInit, onRecordStarted, onRecordProgress, onRecordEnded, onRecordError, onShutdown } from "./common/plugins";
 import GoogleDrivePlugin from "./plugins/google-drive";
 import { setupVideosPath } from "./common/setup";
 import { addStreamer } from "./common/twitch/streamer";
 import { showBanner } from "./common/util/terminal";
-import { addStreamSession } from "./common/streamSession";
-import { runFFmpeg, finalizeFFmpeg } from "./common/ffmpeg";
+import { addStreamSession, getStreamSessions } from "./common/record/streamSession";
+import { runFFmpeg, finalizeFFmpeg } from "./common/record/ffmpeg";
 import SamplePlugin from "./plugins/sample";
-import { wait } from "./common/util";
 
 showBanner(true, true, true);
 
@@ -16,7 +15,6 @@ const videoDir = setupVideosPath();
 
 // Plugin Load Sections
 loadPlugin(new SamplePlugin());
-loadPlugin(new GoogleDrivePlugin());
 
 (async () => {
   console.log("[Streamer] Updating Streamer...");
@@ -42,7 +40,11 @@ loadPlugin(new GoogleDrivePlugin());
           }).then(() => {
             onRecordEnded(streamSession);
           }, (e) => {
-            onRecordError(streamSession, e);
+            if (/Exiting normally/.test(e)) {
+              onRecordEnded(streamSession);
+            } else {
+              onRecordError(streamSession, e);
+            }
           });
 
           //await wait(20);
@@ -56,4 +58,22 @@ loadPlugin(new GoogleDrivePlugin());
   console.log();
   
 })();
+
+process.on("SIGINT", () => {
+  for (const streamSession of getStreamSessions()) {
+    finalizeFFmpeg(streamSession.conversion);
+  }
+
+  console.log("[ SIGINT ] Finalization Complete!");
+
+  (async () => {
+    onShutdown();
+    console.log("[ SIGINT ] Plugin shutdown Complete!");
+  });
+  
+
+
+})
+
+
 
