@@ -1,7 +1,7 @@
 import fs from "fs";
 import Twitch, { HelixUser } from "twitch";
 import { StreamerInterface } from "./interface";
-import { getTwitchConfig } from "../../config/twitch";
+import { getTwitchConfig } from "../config/twitch";
 
 const streamerFile = "./streamer.json";
 

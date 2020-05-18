@@ -48,10 +48,19 @@ https://usher.ttvnw.net/api/channel/hls/계정이름.m3u8
 fast_bread=true는 720p 이상 스트리밍 받기 위해 필요합니다.  
 해당 로직은 [src/common/twitch/stream.ts#L105](src/common/twitch/stream.ts#L105) 에 나와있습니다.  
 
-## GPU 분배 처리
+## 녹화세션 생성
+녹화 세션 생성은 [src/common/record/streamSession/index.ts#L26](src/common/record/streamSession/index.ts#L26) 에서 처리합니다.
+
+### GPU 분배 처리
 매번 스트리밍세션을 생성할 때 마다 사전에 설정된 그래픽 카드당 최대 렌더 개수를 계산하여 할당 합니다.
 
 해당 로직은 [src/common/record/streamSession/gpu.ts#L27](src/common/record/streamSession/gpu.ts#L27) 에서 확인 가능합니다.
+
+### FFmpeg 컨피그 설정
+FFmpeg 가 어떻게 저장할 지, `/config/core/config.json` 을 통해 정의 받습니다. 해당 컨피그의 파싱은 [src/common/record/ffmpeg/config.ts#L30](src/common/record/ffmpeg/config.ts#L30).
+
+## 넷카이브 
+녹화 세션 생성은 [src/common/record/streamSession/index.ts#L26](src/common/record/streamSession/index.ts#L26) 에서 처리합니다.
 
 ## LICENSE
 [LICENSE] 파일에 명시된 것과 같이, MIT License입니다.

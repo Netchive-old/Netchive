@@ -30,7 +30,6 @@
     "lint-fix": "yarn lint --fix",
     "build": "tsc",
     "start": "yarn build && node dist/",
-    "signin-google": "yarn build && node dist/plugins/google-drive/setup.js",
-    "manage-streamer": "yarn build && node dist/streamer/manage.js"
+    "manage-streamer": "yarn build && node dist/common/streamerFile/manage.js"
   }
 }

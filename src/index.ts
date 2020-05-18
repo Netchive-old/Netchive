@@ -1,4 +1,4 @@
-import { updateStreamer, loadStreamerFile, loadStreamer } from "./common/record/streamer";
+import { updateStreamer, loadStreamerFile, loadStreamer } from "./common/streamerFile";
 import { loadPlugin, onInit, onRecordStarted, onRecordProgress, onRecordEnded, onRecordError, onShutdown } from "./common/plugins";
 import { setupVideosPath } from "./common/setup";
 import { addStreamer } from "./common/twitch/streamer";
@@ -55,7 +55,6 @@ loadPlugin(new SamplePlugin());
           onRecordStarted(streamSession);
 
           // ffmpeg 시작
-
           runFFmpeg(streamSession.conversion, (progress) => {
 
             // 진행 중 정보 플러그인으로 전달
@@ -84,7 +83,7 @@ loadPlugin(new SamplePlugin());
 
               // 녹화 오류 발생한 경우 녹화 오류로 넘김
               onRecordError(streamSession, e);
-              
+
             }
 
           });
