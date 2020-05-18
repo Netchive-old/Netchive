@@ -63,6 +63,6 @@ FFmpeg 가 어떻게 저장할 지, `/config/core/config.json` 을 통해 정의
 녹화 세션 생성은 [src/common/record/streamSession/index.ts#L26](src/common/record/streamSession/index.ts#L26) 에서 처리합니다.
 
 ## LICENSE
-[LICENSE] 파일에 명시된 것과 같이, MIT License입니다.
+[LICENSE](LICENSE) 파일에 명시된 것과 같이, MIT License입니다.
 
 
