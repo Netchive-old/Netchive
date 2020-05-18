@@ -1,7 +1,7 @@
 {
   "name": "netchive",
   "version": "0.0.1",
-  "description": "Netchive, automatic recording system for Twitch™",
+  "description": "Twitch™ Stream Recorder with Extensions. (FOSS Edition)",
   "main": "dist/",
   "repository": "https://github.com/Netchive/netchive",
   "author": "Alex4386 <psh010209@gmail.com>",
