@@ -5,38 +5,38 @@ import { FFMpegProgressInterface } from "../../common/record/ffmpeg/interface";
 
 class SamplePlugin implements PluginPrototype {
   public id = "com.netchive.plugin.sample";
-  public name = "Sample Plugin";
+  public name = "샘플 플러그인";
 
   public async onInit(): Promise<void> {
-    console.log("[ Sample ] Initializing plugin "+this.name);
+    console.log("[샘플플긴] 플러그인 "+this.name+" 시작 중");
   }
 
   public async onShutdown(): Promise<void> {
-    console.log("[ Sample ] Shutting down plugin "+this.name);
+    console.log("[샘플플긴] 플러그인 "+this.name+" 종료 중");
   }
 
   public async onStreamerAdded(streamer: HelixUser): Promise<void> {
-    console.log("[ Sample ] Streamer "+streamer.name+" Added.");
+    console.log("[샘플플긴] 스트리머 "+streamer.name+" 추가 됨.");
   }
 
   public async onStreamerRemoved(streamer: HelixUser): Promise<void> {
-    console.log("[ Sample ] Streamer "+streamer.name+" Removed.");
+    console.log("[샘플플긴] 스트리머 "+streamer.name+" 삭제 됨.");
   }
 
   public async onRecordStarted(streamSession: StreamSessionInterface) {
-    console.log("[ Sample ] StreamSession #"+streamSession.id+" "+streamSession.streamer.displayName+" Started");
+    console.log("[샘플플긴] 스트리밍 세션 #"+streamSession.id+" "+streamSession.streamer.displayName+" 녹화 시작 됨");
   }
 
   public async onRecordEnded(streamSession: StreamSessionInterface) {
-    console.log("[ Sample ] StreamSession #"+streamSession.id+" "+streamSession.streamer.displayName+" Ended");
+    console.log("[샘플플긴] 스트리밍 세션 #"+streamSession.id+" "+streamSession.streamer.displayName+" 녹화 완료 됨");
   }
 
   public async onRecordProgress(streamSession: StreamSessionInterface, progress: FFMpegProgressInterface) {
-    console.log("[ Sample ] StreamSession #"+streamSession.id+" "+streamSession.streamer.displayName+" @ "+progress.timemark);
+    console.log("[샘플플긴] 스트리밍 세션 #"+streamSession.id+" "+streamSession.streamer.displayName+" 녹화 중 @ "+progress.timemark);
   }
 
   public async onRecordError(streamSession: StreamSessionInterface, error?: any) {
-    console.log("[ Sample ] StreamSession #"+streamSession.id+" got Error: "+error);
+    console.log("[샘플플긴] 스트리밍 세션 #"+streamSession.id+" "+streamSession.streamer.displayName+" 녹화 중 오류 발생: "+error);
   }
 
 }

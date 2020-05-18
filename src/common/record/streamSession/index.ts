@@ -10,10 +10,19 @@ import fs from "fs";
 const streamSessions: StreamSessionInterface[] = [];
 let currentStreamSessionId = 0;
 
+/**
+ * 현재 스트림 세션들을 봅니다.
+ */
 export function getStreamSessions() {
   return streamSessions;
 }
 
+/**
+ * 스트림세션을 추가합니다. 자동으로 `getStreamSessions` 에서 접근 할 수 있도록 등록됩니다.
+ * 
+ * @param videosDir 비디오를 저장할 디렉토리를 지정합니다 `./videos/`
+ * @param streamer 스트리머를 `HelixUser` 형으로 전달 받습니다.
+ */
 export async function addStreamSession(videosDir: string, streamer: HelixUser): Promise<StreamSessionInterface | null> {
 
   const username = streamer.name;
@@ -36,7 +45,7 @@ export async function addStreamSession(videosDir: string, streamer: HelixUser): 
   if (!fs.existsSync(outputDir)) fs.mkdirSync(outputDir);
 
   const isGPULoadBalancingEnabled = ffmpegConfig.gpus && ffmpegConfig.gpus.length > 0;
-  console.log("[   GPU  ] GPU Load Balancing", (isGPULoadBalancingEnabled) ? "Enabled":"Disabled");
+  console.log("[엔당가속] GPU 로드 밸런싱", (isGPULoadBalancingEnabled) ? "활성화":"비활성화");
   
   const allocatedGPU = (isGPULoadBalancingEnabled) ? allocateGPU(currentStreamSessionId) : undefined
   const ffmpegConversion 
@@ -60,10 +69,18 @@ export async function addStreamSession(videosDir: string, streamer: HelixUser): 
   return streamSession;
 }
 
+/**
+ * 스트림세션을 제거합니다.
+ * @param streamSession 스트림세션
+ */
 export function removeStreamSession(streamSession: StreamSessionInterface): void {
   return removeStreamSessionById(streamSession.id);
 }
 
+/**
+ * 스트림세션을 아이디로 제거합니다.
+ * @param id 스트림세션의 아이디
+ */
 export function removeStreamSessionById(id: number): void {
   for (let i = 0; i < streamSessions.length; i++) {
     if (id === streamSessions[i].id) {

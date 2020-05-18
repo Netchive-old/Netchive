@@ -1,8 +1,7 @@
 import { FFMpegMediaConversionInterface, FFMpegConfigInterface } from "../../config/ffmpeg";
 import * as stream from "stream";
-import ffmpeg, { FfmpegCommand, FfmpegCommandOptions } from "fluent-ffmpeg";
+import ffmpeg, { FfmpegCommand } from "fluent-ffmpeg";
 import fs from "fs";
-import { spawn, ChildProcessWithoutNullStreams } from "child_process";
 
 export const ffmpegConfigFile = "./config/core/ffmpeg.json";
 
