@@ -103,14 +103,13 @@ process.on("SIGINT", () => {
   }
 
   console.log("[종료요청] 스트림 완료처리 완료!");
+})
 
+process.on("beforeExit", () => {
   (async () => {
     await onShutdown();
     console.log("[종료요청] 플러그인 종료작업 완료!");
-  });
-  
-
-
+  })();
 })
 
 
