@@ -2,6 +2,7 @@ import { FFMpegMediaConversionInterface, FFMpegConfigInterface } from "../../con
 import * as stream from "stream";
 import ffmpeg, { FfmpegCommand } from "fluent-ffmpeg";
 import fs from "fs";
+import ffmpegStatic from "ffmpeg-static";
 
 export const ffmpegConfigFile = "./config/core/ffmpeg.json";
 
@@ -36,7 +37,11 @@ export function loadConfig4FFmpeg(input: string | stream.Readable, output: strin
 
   const extension = extensionParsed[extensionParsed.length - 1];
 
-  const conversion = ffmpeg().addInput(input).addOptions([
+  const conversion = ffmpeg();
+
+  conversion.setFfmpegPath(ffmpegStatic);
+  
+  conversion.addInput(input).addOptions([
     //"-vsync 1",
     "-async 1"
   ]).output(output);
