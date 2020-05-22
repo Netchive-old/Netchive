@@ -52,7 +52,7 @@ loadPlugin(new SamplePlugin());
         if (streamSession) {
 
           // 플러그인에 녹화 시작한걸 알림
-          onRecordStarted(streamSession);
+          await onRecordStarted(streamSession);
 
           // ffmpeg 시작
           runFFmpeg(streamSession.conversion, (progress) => {
@@ -82,7 +82,7 @@ loadPlugin(new SamplePlugin());
             } else {
 
               // 녹화 오류 발생한 경우 녹화 오류로 넘김
-              onRecordError(streamSession, e);
+              await onRecordError(streamSession, e);
 
             }
 
