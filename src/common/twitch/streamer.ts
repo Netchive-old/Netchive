@@ -1,5 +1,5 @@
 import { HelixUser } from "twitch";
-import { onStreamerAdded } from "../plugins";
+import { onStreamerAdded, onStreamerRemoved } from "../plugins";
 
 const streamers: HelixUser[] = [];
 
@@ -33,5 +33,8 @@ export function removeStreamer(streamer: HelixUser): void {
     }
   }
 
-  if (index >= 0) streamers.splice(index, 1);
+  if (index >= 0) { 
+    streamers.splice(index, 1);
+    onStreamerRemoved(streamer);
+  }
 }

@@ -7,9 +7,12 @@ export interface StreamSessionInterface {
   streamer: HelixUser;
   gpu?: {
     id: number;
-  }
+  };
   output: {
     outputDir: string;
     outputPath: string;
-  }
+  };
+  plugins?: {
+    [key: string]: any;
+  };
 };
