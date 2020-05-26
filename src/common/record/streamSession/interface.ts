@@ -1,10 +1,11 @@
 import { FfmpegCommand } from "fluent-ffmpeg";
-import { HelixUser } from "twitch";
+import { HelixUser, HelixStream } from "twitch";
 
 export interface StreamSessionInterface {
   id: number;
   conversion: FfmpegCommand;
   streamer: HelixUser;
+  stream: HelixStream;
   gpu?: {
     id: number;
   };

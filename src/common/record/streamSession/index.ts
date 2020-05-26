@@ -1,5 +1,5 @@
 import path from "path";
-import { HelixUser } from "twitch";
+import { HelixUser, HelixStream } from "twitch";
 import { getStreamOnlyClientId, getTwitchAccessToken, getTwitchLivePlaylistUrl, generateDateName } from "../../twitch/stream";
 import { StreamSessionInterface } from "./interface";
 import { loadConfig4FFmpeg, loadFFmpegConfig } from "../ffmpeg/config";
@@ -57,6 +57,7 @@ export async function addStreamSession(videosDir: string, streamer: HelixUser): 
       id: allocatedGPU
     } : undefined,
     streamer,
+    stream: await streamer.getStream() as HelixStream,
     conversion: ffmpegConversion,
     output: {
       outputDir,
