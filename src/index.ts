@@ -110,7 +110,8 @@ process.on("SIGINT", () => {
   (async () => {
     await onShutdown();
     console.log("[종료요청] 플러그인 종료작업 완료!");
-  });
+    process.exit();
+  })();
 
 })
 
