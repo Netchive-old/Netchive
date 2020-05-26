@@ -32,7 +32,7 @@ class SamplePlugin implements PluginPrototype {
   }
 
   public async onRecordProgress(streamSession: StreamSessionInterface, progress: FFMpegProgressInterface) {
-    console.log("[샘플플긴] 스트리밍 세션 #"+streamSession.id+" "+streamSession.streamer.displayName+" 녹화 중 @ "+progress.timemark);
+    console.log("[샘플플긴] 스트리밍 세션 #"+streamSession.id+" "+streamSession.streamer.displayName+" 녹화 중 @ "+progress.timemark+" "+progress.currentFps+"fps");
   }
 
   public async onRecordError(streamSession: StreamSessionInterface, error?: any) {
