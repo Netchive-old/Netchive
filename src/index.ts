@@ -84,6 +84,9 @@ loadPlugin(new SamplePlugin());
               // 녹화 오류 발생한 경우 녹화 오류로 넘김
               await onRecordError(streamSession, e);
 
+              // GPU 할당 해제
+              freeGPU(streamSession.id);
+
             }
 
           });
