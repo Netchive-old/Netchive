@@ -62,6 +62,8 @@ export async function onShutdown(): Promise<void> {
 export async function onExit(): Promise<void> {
   for (const plugin of loadedPlugins) {
     // eslint-disable-next-line no-await-in-loop
+    if (plugin.activated && plugin.onShutdown) await plugin.onShutdown();
+    // eslint-disable-next-line no-await-in-loop
     if (plugin.onExit) await plugin.onExit();
   }
 }

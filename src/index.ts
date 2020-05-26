@@ -1,5 +1,5 @@
 import { updateStreamer, loadStreamerFile, loadStreamer } from "./common/streamerFile";
-import { loadPlugin, onInit, onRecordStarted, onRecordProgress, onRecordEnded, onRecordError, onShutdown } from "./common/plugins";
+import { loadPlugin, onInit, onRecordStarted, onRecordProgress, onRecordEnded, onRecordError, onShutdown, onExit } from "./common/plugins";
 import { setupVideosPath } from "./common/setup";
 import { addStreamer } from "./common/twitch/streamer";
 import { showBanner } from "./common/util/terminal";
@@ -106,12 +106,17 @@ process.on("SIGINT", () => {
   }
 
   console.log("[종료요청] 스트림 완료처리 완료!");
+
+  (async () => {
+    await onShutdown();
+    console.log("[종료요청] 플러그인 종료작업 완료!");
+  });
+
 })
 
 process.on("beforeExit", () => {
   (async () => {
-    await onShutdown();
-    console.log("[종료요청] 플러그인 종료작업 완료!");
+    await onExit();
   })();
 })
 
