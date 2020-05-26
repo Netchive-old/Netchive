@@ -14,6 +14,11 @@ interface PluginPrototype {
    */
   name: string;
 
+  /**
+   * 이미 Netchive Plugin 이 활성화 되었는지 확인합니다.
+   */
+  activated: boolean;
+
   /** 
    * Netchive 시스템이 처음 시작 되었을 때 플러그인에서 구동 해야 하는 내용을 담습니다.
    */
@@ -23,6 +28,11 @@ interface PluginPrototype {
    * Netchive 시스템이 종료될 때 플러그인에서 구동해야 하는 내용을 담습니다.
    */
   onShutdown?: () => Promise<void>;
+
+  /**
+   * Netchive 엔진이 시스템 종료 후 엔진을 종료할 때 플러그인에서 구동해야 하는 내용을 담습니다.
+   */
+  onExit?: () => Promise<void>;
 
   /**
    * Netchive 시스템에서 녹화가 시작되었을 때 구동해야 하는 내용을 담습니다.

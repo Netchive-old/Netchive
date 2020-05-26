@@ -6,13 +6,20 @@ import { FFMpegProgressInterface } from "../../common/record/ffmpeg/interface";
 class SamplePlugin implements PluginPrototype {
   public id = "com.netchive.plugin.sample";
   public name = "샘플 플러그인";
+  public activated = false;
 
   public async onInit(): Promise<void> {
     console.log("[샘플플긴] 플러그인 "+this.name+" 시작 중");
+    this.activated = true;
   }
 
   public async onShutdown(): Promise<void> {
     console.log("[샘플플긴] 플러그인 "+this.name+" 종료 중");
+    this.activated = false;
+  }
+
+  public async onExit(): Promise<void> {
+    console.log("[샘플플긴] 플러그인 "+this.name+" 엔진 종료 준비 중");
   }
 
   public async onStreamerAdded(streamer: HelixUser): Promise<void> {

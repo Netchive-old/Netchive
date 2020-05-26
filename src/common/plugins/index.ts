@@ -57,6 +57,16 @@ export async function onShutdown(): Promise<void> {
 }
 
 /**
+ * 로드된 플러그인의 모든 exit 스크립트를 구동하도록 합니다.
+ */
+export async function onExit(): Promise<void> {
+  for (const plugin of loadedPlugins) {
+    // eslint-disable-next-line no-await-in-loop
+    if (plugin.onExit) await plugin.onExit();
+  }
+}
+
+/**
  * 로드된 플러그인의 모든 onStreamerAdded 스크립트를 구동하도록 합니다.
  */
 export async function onStreamerAdded(streamer: HelixUser): Promise<void> {
