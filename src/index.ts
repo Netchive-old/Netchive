@@ -110,12 +110,15 @@ process.on("SIGINT", () => {
   (async () => {
     await onShutdown();
     console.log("[종료요청] 플러그인 종료작업 완료!");
+    while (getStreamSessions().length != 0) {}
+    process.exit();
   })();
 
 })
 
 process.on("beforeExit", () => {
   (async () => {
+    console.log("[종료요청] 엔진 종료 처리 중!");
     await onExit();
   })();
 })
