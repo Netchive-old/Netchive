@@ -3,10 +3,11 @@ import { loadPlugin, onInit, onRecordStarted, onRecordProgress, onRecordEnded, o
 import { setupVideosPath } from "./common/setup";
 import { addStreamer } from "./common/twitch/streamer";
 import { showBanner } from "./common/util/terminal";
-import { addStreamSession, getStreamSessions } from "./common/record/streamSession";
+import { addStreamSession, getStreamSessions, waitForStreamSessionsShutdown } from "./common/record/streamSession";
 import { runFFmpeg, finalizeFFmpeg } from "./common/record/ffmpeg";
 import SamplePlugin from "./plugins/sample";
 import { freeGPU } from "./common/record/streamSession/gpu";
+import { timeStamp2epoch } from "./common/record/ffmpeg/formatter";
 
 showBanner(true, true, true);
 
@@ -57,6 +58,11 @@ loadPlugin(new SamplePlugin());
           // ffmpeg 시작
           runFFmpeg(streamSession.conversion, (progress) => {
 
+            // 상황을 저장함.
+            streamSession.status.timestamp = progress.timemark;
+            streamSession.status.epoch = timeStamp2epoch(progress.timemark);
+            streamSession.status.lastUpdate = new Date();
+
             // 진행 중 정보 플러그인으로 전달
             onRecordProgress(streamSession, progress);
 
@@ -98,30 +104,74 @@ loadPlugin(new SamplePlugin());
   }
 })();
 
-process.on("SIGINT", () => {
+const onBeforeExit = async () => {
+  console.log("[종료요청] 엔진 종료 처리 중!");
+  await onExit();
+
+  process.exit();
+};
+
+const onSIGINT = async () => {
   console.log();
   
   for (const streamSession of getStreamSessions()) {
     finalizeFFmpeg(streamSession.conversion);
+    console.log("[종료요청] "+streamSession.streamer.name+" ("+streamSession.streamer.displayName+") 녹화 마무리 진행 중");
   }
 
   console.log("[종료요청] 스트림 완료처리 완료!");
 
-  (async () => {
-    await onShutdown();
-    console.log("[종료요청] 플러그인 종료작업 완료!");
-    while (getStreamSessions().length != 0) {}
-    process.exit();
-  })();
+  await onShutdown();
+  console.log("[종료요청] 플러그인 종료작업 완료!");
+  console.log("[종료요청] 세션 "+getStreamSessions().length+"개 확인 됨!");
 
-})
+  await waitForStreamSessionsShutdown();
+  console.log("[종료요청] 세션 종료 완료!");
+
+  console.log("[종료요청] 모든 세션 종료 확인 됨!");
+  await onBeforeExit();
+
+  process.exit();
+}
+
+process.on("SIGINT", () => {
+  let completed = false;
+  onSIGINT().then(() => {
+    console.log("[종료요청] SIGINT 핸들링 완료!");
+    completed = true;
+  });
+
+  const startSecond = Date.now();
+  let lastSecond = Date.now();
+  let showScreen = true;
+
+  while(!completed) {
+    showScreen = Date.now() - lastSecond > 1000 ? true : false;
+    if (showScreen) {
+      console.log("[종료요청] 종료 요청을 대기하는 중 입니다. 현재 "+((lastSecond - startSecond) / 1000).toFixed(2)+" 초 대기 중...");
+      lastSecond = Date.now();
+    }
+  }
+});
 
 process.on("beforeExit", () => {
-  (async () => {
-    console.log("[종료요청] 엔진 종료 처리 중!");
-    await onExit();
-  })();
-})
+  let completed = false;
+  onBeforeExit().then(() => {
+    console.log("[종료요청] Exit 이전 시도 핸들링 완료!");
+    completed = true;
+  });
 
+  const startSecond = Date.now();
+  let lastSecond = Date.now();
+  let showScreen = true;
+
+  while(!completed) {
+    showScreen = lastSecond - Date.now() > 1000 ? true : false;
+    if (showScreen) {
+      console.log("[종료요청] 종료 요청을 대기하는 중 입니다. 현재 "+(lastSecond - startSecond).toFixed(2)+"초 대기 중...");
+      lastSecond = Date.now();
+    }
+  }
+});
 
 

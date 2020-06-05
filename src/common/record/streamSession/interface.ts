@@ -13,7 +13,12 @@ export interface StreamSessionInterface {
     outputDir: string;
     outputPath: string;
   };
-  plugins?: {
+  plugins: {
     [key: string]: any;
   };
+  status: {
+    timestamp: string;
+    epoch: number;
+    lastUpdate: Date;
+  }
 };

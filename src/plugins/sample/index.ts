@@ -16,6 +16,7 @@ class SamplePlugin implements PluginPrototype {
   public async onShutdown(): Promise<void> {
     console.log("[샘플플긴] 플러그인 "+this.name+" 종료 중");
     this.activated = false;
+    console.log("[샘플플긴] 플러그인 "+this.name+" 종료 완료");
   }
 
   public async onExit(): Promise<void> {

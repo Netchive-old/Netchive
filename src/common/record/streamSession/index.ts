@@ -62,7 +62,13 @@ export async function addStreamSession(videosDir: string, streamer: HelixUser): 
     output: {
       outputDir,
       outputPath
-    }
+    },
+    status: {
+      timestamp: "00:00:00.00",
+      epoch: 0,
+      lastUpdate: new Date(),
+    },
+    plugins: {}
   };
 
   streamSessions.push(streamSession);
@@ -89,5 +95,13 @@ export function removeStreamSessionById(id: number): void {
       return;
     }
   }
+  return;
+}
+
+/**
+ * 모든 스트림세션의 종료를 기다립니다.
+ */
+export async function waitForStreamSessionsShutdown(): Promise<void> {
+  while (getStreamSessions().length !== 0) {}
   return;
 }
