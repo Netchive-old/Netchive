@@ -3,6 +3,8 @@ import { getTwitchConfig } from "../config/twitch";
 import { TwitchAccessTokenInterface } from "./interface";
 import { wait } from "../util";
 
+const netchiveCompanionURL = "http://localhost:18181";
+
 /**
  * 스트리밍용으로 사용가능한 Client ID를 트위치 공홈을 통해 받습니다.  
  * 정규 표현식으로 빌런짓 해놓은거라 느림.  
@@ -103,25 +105,10 @@ export async function getTwitchAccessToken(userName: string, clientIdRaw?: strin
  * @param accessToken `TwitchAccessTokenInterface` 형식의 access_token (Default. `getTwitchAccessToken` 으로 자동 생성함)
  */
 export async function getTwitchLivePlaylistUrl(userName: string, accessToken?: TwitchAccessTokenInterface|null): Promise<string> {
-  if (typeof accessToken === "undefined" || accessToken === null) {
-    accessToken = await getTwitchAccessToken(userName);
-  }
-
-  let url = "https://usher.ttvnw.net/";
-  url += "api/channel/hls/";
-  url += userName+".m3u8";
+  const res = await axios.get(netchiveCompanionURL+"/twitch/"+userName);
+  const body = res.body;
   
-  url += "?allow_source=true";
-  url += "&playlist_include_framerate=true";
-  url += "&player_backend=mediaplayer";
-  url += "&fast_bread=true";
-  url += "&reassignments_supported=true";
-  url += "&sig="+accessToken.sig;
-  url += "&supported_codecs=avc1";
-  url += "&token="+encodeURIComponent(accessToken.token);
-  url += "&cdm=wv";
-  url += "&player_version=0.9.5";
-
+  const url = body.url;
   return url;
 }
 
