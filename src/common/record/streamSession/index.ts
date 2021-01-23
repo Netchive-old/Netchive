@@ -27,13 +27,7 @@ export async function addStreamSession(videosDir: string, streamer: HelixUser): 
 
   const username = streamer.name;
 
-  const clientId = await getStreamOnlyClientId(username);
-  if (!clientId) return null;
-
-  const accessToken = await getTwitchAccessToken(username, clientId);
-  if (!accessToken) return null;
-
-  const playlistUrl = await getTwitchLivePlaylistUrl(username, accessToken);
+  const playlistUrl = await getTwitchLivePlaylistUrl(username, undefined);
   if (!playlistUrl) return null;
 
   const ffmpegConfig = loadFFmpegConfig();
